@@ -22,13 +22,13 @@ ENV SBT_HOME    /usr/local/sbt
 ENV SPARK_HOME  /usr/local/spark
 ENV PATH        $JAVA_HOME/bin:$SCALA_HOME/bin:$SBT_HOME/bin:$SPARK_HOME/bin:$SPARK_HOME/sbin:$PATH
 
-# Download, uncompress and move all the required packages and libraries to their corresponding directories in /usr/local/ folder.
 RUN apt-get -yqq update && \
     apt-get install -yqq vim screen tmux && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /tmp/*
-
+    
+# Download, uncompress and move all the required packages and libraries to their corresponding directories in /usr/local/ folder.
 RUN wget -qO - ${SCALA_BINARY_DOWNLOAD_URL} | tar -xz -C /usr/local/
 RUN wget -qO - ${SBT_BINARY_DOWNLOAD_URL} | tar -xz -C /usr/local/
 RUN wget -qO - ${SPARK_BINARY_DOWNLOAD_URL} | tar -xz -C /usr/local/
