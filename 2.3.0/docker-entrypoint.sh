@@ -4,7 +4,4 @@ start-master.sh
 # sleep 2s
 # spark-shell --master local[4]
 
-while true
-do
-	sleep 2s
-done
+/bin/bash -c "$*"
