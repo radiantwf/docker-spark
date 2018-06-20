@@ -36,12 +36,14 @@ RUN wget -qO - ${SPARK_BINARY_DOWNLOAD_URL} | tar -xz -C /usr/local/
 RUN cd /usr/local/ && \
     ln -s ${SCALA_BINARY_ARCHIVE_NAME} scala && \
     ln -s ${SPARK_BINARY_ARCHIVE_NAME} spark && \
+    ln -s ${SCALA_BINARY_ARCHIVE_NAME} /home/scala && \
+    ln -s ${SPARK_BINARY_ARCHIVE_NAME} /home/spark && \
     cp spark/conf/log4j.properties.template spark/conf/log4j.properties && \
     sed -i -e s/WARN/ERROR/g spark/conf/log4j.properties && \
     sed -i -e s/INFO/ERROR/g spark/conf/log4j.properties
 
 USER root
-WORKDIR ~
+WORKDIR /home/spark
 
 COPY docker-entrypoint.sh /usr/local/bin/
 ENTRYPOINT ["docker-entrypoint.sh"]
