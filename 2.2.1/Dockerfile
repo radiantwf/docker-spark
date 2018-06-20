@@ -36,11 +36,13 @@ RUN wget -qO - ${SPARK_BINARY_DOWNLOAD_URL} | tar -xz -C /usr/local/
 RUN cd /usr/local/ && \
     ln -s ${SCALA_BINARY_ARCHIVE_NAME} scala && \
     ln -s ${SPARK_BINARY_ARCHIVE_NAME} spark && \
-    ln -s scala /home/scala && \
-    ln -s spark /home/spark && \
     cp spark/conf/log4j.properties.template spark/conf/log4j.properties && \
     sed -i -e s/WARN/ERROR/g spark/conf/log4j.properties && \
     sed -i -e s/INFO/ERROR/g spark/conf/log4j.properties
+
+RUN ln -s ${SCALA_HOME} /home/scala && \
+    ln -s ${SBT_HOME} /home/sbt && \
+    ln -s ${SPARK_HOME} /home/spark
 
 USER root
 WORKDIR /home/spark
